@@ -1,11 +1,847 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kirana - 10rpl3</title>
+
+    <title>Kirana | 10 RPL 3</title>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Poppins:wght@400;500;600&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            overflow-x: hidden;
+            color: #eee;
+            font-family: 'Poppins', sans-serif;
+
+            background:
+                radial-gradient(circle at 50% 10%, #4c2670 0%, transparent 30%),
+                radial-gradient(circle at 10% 90%, #321b42 0%, transparent 30%),
+                linear-gradient(135deg, #08070a, #17131b 50%, #09080b);
+        }
+
+        /* =========================
+           BACKGROUND
+        ========================== */
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+
+            background-image:
+                radial-gradient(#ffffff22 1px, transparent 1px),
+                radial-gradient(#9d5cff18 1px, transparent 1px);
+
+            background-size: 45px 45px, 70px 70px;
+            background-position: 0 0, 20px 30px;
+
+            opacity: .35;
+        }
+
+        .moon {
+            position: fixed;
+            top: 50px;
+            right: 8%;
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+
+            background: #d9cce8;
+
+            box-shadow:
+                0 0 30px #b98bea,
+                0 0 80px #713ca2;
+
+            opacity: .75;
+        }
+
+        .moon::after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: #111015;
+            left: 30px;
+            top: -10px;
+        }
+
+        /* =========================
+           HALLOWEEN FLOATING OBJECTS
+        ========================== */
+
+        .floating {
+            position: fixed;
+            z-index: 1;
+            pointer-events: none;
+            user-select: none;
+        }
+
+        .pumpkin {
+            font-size: 50px;
+            animation: floatPumpkin 8s ease-in-out infinite;
+        }
+
+        .pumpkin.one {
+            left: 5%;
+            top: 20%;
+        }
+
+        .pumpkin.two {
+            right: 7%;
+            bottom: 18%;
+            animation-delay: 2s;
+        }
+
+        .ghost {
+            font-size: 55px;
+            animation: ghostMove 12s linear infinite;
+        }
+
+        .ghost.one {
+            left: -80px;
+            top: 35%;
+        }
+
+        .ghost.two {
+            right: -80px;
+            top: 65%;
+            animation-delay: 5s;
+        }
+
+        .bat {
+            font-size: 35px;
+            animation: batMove 10s linear infinite;
+        }
+
+        .bat.one {
+            left: 15%;
+            top: 12%;
+        }
+
+        .bat.two {
+            right: 20%;
+            top: 25%;
+            animation-delay: 3s;
+        }
+
+        @keyframes floatPumpkin {
+            0%, 100% {
+                transform: translateY(0) rotate(-5deg);
+            }
+
+            50% {
+                transform: translateY(-30px) rotate(5deg);
+            }
+        }
+
+        @keyframes ghostMove {
+            0% {
+                transform: translateX(0) translateY(0);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: .8;
+            }
+
+            50% {
+                transform: translateX(55vw) translateY(-40px);
+            }
+
+            90% {
+                opacity: .8;
+            }
+
+            100% {
+                transform: translateX(110vw) translateY(20px);
+                opacity: 0;
+            }
+        }
+
+        @keyframes batMove {
+            0%, 100% {
+                transform: translate(0, 0) rotate(0);
+            }
+
+            50% {
+                transform: translate(80px, 40px) rotate(8deg);
+            }
+        }
+
+        /* =========================
+           MAIN
+        ========================== */
+
+        .wrapper {
+            position: relative;
+            z-index: 5;
+
+            width: min(900px, 92%);
+            margin: auto;
+
+            padding: 70px 20px 100px;
+
+            text-align: center;
+        }
+
+        .title {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(28px, 5vw, 50px);
+            letter-spacing: 5px;
+
+            color: #eee;
+
+            text-shadow:
+                0 0 10px #a85cff,
+                0 0 25px #7128a3;
+        }
+
+        .subtitle {
+            margin-top: 8px;
+            color: #aaa;
+            font-size: 14px;
+            letter-spacing: 3px;
+        }
+
+        /* =========================
+           PROFILE
+        ========================== */
+
+        .profile {
+            margin-top: 45px;
+        }
+
+        .profile-frame {
+            position: relative;
+
+            width: 190px;
+            height: 190px;
+
+            margin: auto;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .profile-frame::before {
+            content: "";
+
+            position: absolute;
+            inset: -16px;
+
+            border: 3px solid #6d3c8c;
+            border-radius: 50%;
+
+            box-shadow:
+                0 0 10px #9d4edd,
+                0 0 30px #54216f,
+                inset 0 0 20px #35153f;
+        }
+
+        .profile-frame::after {
+            content: "✦ ❦ ✧ ❧ ✦";
+
+            position: absolute;
+
+            inset: -40px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            color: #8f51ad;
+
+            font-size: 25px;
+            letter-spacing: 15px;
+
+            transform: rotate(-25deg);
+
+            text-shadow: 0 0 10px #a75ed1;
+        }
+
+        .profile-photo {
+    width: 165px;
+    height: 165px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 5px solid #17121c;
+
+    box-shadow:
+        0 0 0 3px #9b55bd,
+        0 0 25px #8d43b5;
+}
+        
+
+        .name {
+            margin-top: 28px;
+
+            font-family: 'Cinzel', serif;
+
+            font-size: 28px;
+            color: #eee;
+
+            text-shadow: 0 0 12px #9d5cc8;
+        }
+
+        .class-name {
+            margin-top: 5px;
+
+            color: #a56fc2;
+            letter-spacing: 3px;
+            font-size: 13px;
+        }
+
+        /* =========================
+           SOCIAL
+        ========================== */
+
+        .social {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+
+            margin-top: 25px;
+            flex-wrap: wrap;
+        }
+
+        .social a {
+            text-decoration: none;
+            color: #ddd;
+
+            padding: 10px 18px;
+
+            background: #151219;
+            border: 1px solid #493653;
+
+            border-radius: 12px;
+
+            transition: .3s;
+        }
+
+        .social a:hover {
+            color: white;
+
+            background: #34203e;
+
+            border-color: #a052d0;
+
+            box-shadow:
+                0 0 15px #8037a5;
+
+            transform: translateY(-4px);
+        }
+
+        /* =========================
+           TASKS
+        ========================== */
+
+        .section-title {
+            margin-top: 75px;
+            margin-bottom: 25px;
+
+            font-family: 'Cinzel', serif;
+
+            color: #d5c2df;
+
+            font-size: 22px;
+            letter-spacing: 3px;
+        }
+
+        .tasks {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 20px;
+        }
+
+        .task {
+            position: relative;
+
+            min-height: 150px;
+
+            padding: 25px 15px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            text-decoration: none;
+            color: #eee;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #242027,
+                    #111015
+                );
+
+            border: 1px solid #4a3a50;
+
+            border-radius: 20px;
+
+            overflow: hidden;
+
+            transition:
+                transform .35s,
+                border .35s,
+                box-shadow .35s;
+        }
+
+        .task::before {
+            content: "";
+
+            position: absolute;
+
+            width: 100px;
+            height: 100px;
+
+            border-radius: 50%;
+
+            background: #7c36a8;
+
+            filter: blur(55px);
+
+            opacity: .2;
+
+            transition: .4s;
+        }
+
+        .task:hover {
+            transform: translateY(-10px) scale(1.03);
+
+            border-color: #a65bd0;
+
+            box-shadow:
+                0 10px 30px #000,
+                0 0 25px #78349c;
+        }
+
+        .task:hover::before {
+            opacity: .55;
+        }
+
+        .task-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .task-icon {
+            display: block;
+
+            font-size: 38px;
+            margin-bottom: 12px;
+
+            filter:
+                drop-shadow(0 0 8px #a052d0);
+        }
+
+        .task-name {
+            font-family: 'Cinzel', serif;
+
+            font-size: 16px;
+
+            letter-spacing: 1px;
+        }
+
+        /* =========================
+           GLOBE BUTTON
+        ========================== */
+
+        .web-button {
+            position: relative;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+
+            width: min(450px, 90%);
+            height: 75px;
+
+            margin: 35px auto 0;
+
+            border-radius: 50px;
+
+            text-decoration: none;
+
+            color: white;
+
+            background:
+                linear-gradient(
+                    120deg,
+                    #17131b,
+                    #3b2250,
+                    #17131b
+                );
+
+            border: 1px solid #8650a5;
+
+            box-shadow:
+                0 0 15px #542b6d,
+                inset 0 0 20px #211529;
+
+            overflow: hidden;
+
+            transition: .35s;
+        }
+
+        .web-button:hover {
+            transform: scale(1.04);
+
+            box-shadow:
+                0 0 20px #9c50ca,
+                0 0 45px #54206e;
+        }
+
+        .globe {
+            font-size: 38px;
+
+            animation:
+                globeRotate 5s linear infinite;
+        }
+
+        @keyframes globeRotate {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .web-text {
+            font-family: 'Cinzel', serif;
+            letter-spacing: 2px;
+        }
+
+        /* =========================
+           SPARKS
+        ========================== */
+
+        .spark {
+            position: absolute;
+
+            width: 5px;
+            height: 5px;
+
+            background: #dca6ff;
+
+            border-radius: 50%;
+
+            pointer-events: none;
+
+            animation: spark .7s ease-out forwards;
+
+            box-shadow:
+                0 0 7px #c46dff,
+                0 0 14px #8d38bb;
+        }
+
+        @keyframes spark {
+            from {
+                transform:
+                    translate(0, 0)
+                    scale(1);
+
+                opacity: 1;
+            }
+
+            to {
+                transform:
+                    translate(
+                        var(--x),
+                        var(--y)
+                    )
+                    scale(0);
+
+                opacity: 0;
+            }
+        }
+
+        /* =========================
+           FOOTER
+        ========================== */
+
+        footer {
+            margin-top: 70px;
+
+            color: #777;
+
+            font-size: 12px;
+            letter-spacing: 2px;
+        }
+
+        /* =========================
+           RESPONSIVE
+        ========================== */
+
+        @media (max-width: 700px) {
+
+            .tasks {
+                grid-template-columns: 1fr;
+            }
+
+            .moon {
+                width: 70px;
+                height: 70px;
+            }
+
+            .pumpkin {
+                font-size: 35px;
+            }
+
+            .ghost {
+                font-size: 40px;
+            }
+        }
+    </style>
 </head>
+
 <body>
-    <h1>tes</h1>
+
+    <!-- Bulan -->
+    <div class="moon"></div>
+
+    <!-- Halloween objects -->
+    <div class="floating pumpkin one">🎃</div>
+    <div class="floating pumpkin two">🎃</div>
+
+    <div class="floating ghost one">👻</div>
+    <div class="floating ghost two">👻</div>
+
+    <div class="floating bat one">🦇</div>
+    <div class="floating bat two">🦇</div>
+
+
+    <main class="wrapper">
+
+        <h1 class="title">KIRANA</h1>
+
+        <p class="subtitle">
+            PERSONAL WEB • 10 RPL 3
+        </p>
+
+
+        <!-- PROFILE -->
+        <section class="profile">
+
+            <div class="profile-frame">
+
+                <!--
+                GANTI bagian src ini dengan nama foto
+                yang ada di repository kamu.
+
+                Contoh:
+                src="foto.jpg"
+                -->
+                <img
+                    src="foto.jpg"
+                    alt="Foto Profil"
+                    class="profile-photo"
+                >
+
+            </div>
+
+            <h2 class="name">
+                Kirana Anggraini Putri Ekgita
+            </h2>
+
+            <p class="class-name">
+                X RPL 3
+            </p>
+
+
+            <!-- SOCIAL -->
+            <div class="social">
+
+                <a href="#" target="_blank">
+                    Instagram
+                </a>
+
+                <a href="#" target="_blank">
+                    TikTok
+                </a>
+
+                <a href="#" target="_blank">
+                    GitHub
+                </a>
+
+            </div>
+
+        </section>
+
+
+        <!-- TASK -->
+        <h2 class="section-title">
+            MY TASKS
+        </h2>
+
+
+        <section class="tasks">
+
+            <!-- FORM BIODATA -->
+            <a
+                href="form_biodata.html"
+                class="task"
+            >
+
+                <div class="task-content">
+
+                    <span class="task-icon">
+                        🖨️
+                    </span>
+
+                    <span class="task-name">
+                        Form Biodata
+                    </span>
+
+                </div>
+
+            </a>
+
+
+            <!-- HASIL BIODATA -->
+            <a
+                href="hasil_biodata.html"
+                class="task"
+            >
+
+                <div class="task-content">
+
+                    <span class="task-icon">
+                        📃
+                    </span>
+
+                    <span class="task-name">
+                        Hasil Biodata
+                    </span>
+
+                </div>
+
+            </a>
+
+
+            <!-- TABEL -->
+            <a
+                href="tabel.html"
+                class="task"
+            >
+
+                <div class="task-content">
+
+                    <span class="task-icon">
+                        📄📏
+                    </span>
+
+                    <span class="task-name">
+                        Tabel
+                    </span>
+
+                </div>
+
+            </a>
+
+        </section>
+
+
+        <!-- WEB BUTTON -->
+        <a
+            href="https://10rpl3-web-19.vercel.app/"
+            target="_blank"
+            class="web-button"
+        >
+
+            <span class="globe">
+                🌐
+            </span>
+
+            <span class="web-text">
+                Tampilan Web
+            </span>
+
+        </a>
+
+
+        <footer>
+            © 2026 • KIRANA • 10 RPL 3
+        </footer>
+
+    </main>
+
+
+    <!-- SPARK EFFECT -->
+    <script>
+
+        const buttons = document.querySelectorAll(
+            '.task, .web-button'
+        );
+
+        buttons.forEach(button => {
+
+            button.addEventListener(
+                'mouseenter',
+                function () {
+
+                    for (
+                        let i = 0;
+                        i < 12;
+                        i++
+                    ) {
+
+                        const spark =
+                            document.createElement('span');
+
+                        spark.classList.add('spark');
+
+                        const x =
+                            (Math.random() - .5) * 180;
+
+                        const y =
+                            (Math.random() - .5) * 120;
+
+                        spark.style.setProperty(
+                            '--x',
+                            `${x}px`
+                        );
+
+                        spark.style.setProperty(
+                            '--y',
+                            `${y}px`
+                        );
+
+                        spark.style.left =
+                            `${Math.random() * 100}%`;
+
+                        spark.style.top =
+                            `${Math.random() * 100}%`;
+
+                        button.appendChild(spark);
+
+                        setTimeout(() => {
+                            spark.remove();
+                        }, 700);
+                    }
+
+                }
+            );
+
+        });
+
+    </script>
+
 </body>
 </html>
